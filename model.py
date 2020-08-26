@@ -23,9 +23,13 @@ class Model(object):
                 for detector in self.detectors:
                     if detector.get_platform_name() == platform:
                         optional_results.append(detector.detect(domain))
+                        if not optional_results[0][1]:
+                            return self.check_platform(domain)
                         break
             tuple_result = []
             for result in optional_results:
+                if not result:
+                    break
                 if result[1]:
                     tuple_result.append(result)
             if len(tuple_result) > 1:

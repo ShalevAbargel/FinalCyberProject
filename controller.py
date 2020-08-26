@@ -2,10 +2,11 @@ import datetime
 # noinspection PyUnresolvedReferences
 from xml.dom import minidom
 
-from JOOMLADetector import JOOMLADetector
-from MyDB import MyDB
-from Squarespace.squarespace_detector import SquareSpaceDetector
-from WP.wp_detector import WPDetector
+from drupal.drupaldetector import drupalDetector
+from joomla.joomladetector import JoomlaDetector
+from mydb import MyDB
+from squarespace.squarespacedetector import SquarspaceDetector
+from wordpress.wpdetector import WPDetector
 from model import Model
 
 
@@ -13,9 +14,10 @@ class Controller(object):
 
     def __init__(self):
         wordpress_detector = WPDetector()
-        joomla_detector = JOOMLADetector()
-        squarespace_detector = SquareSpaceDetector()
-        detectors = [wordpress_detector, joomla_detector, squarespace_detector]
+        joomla_detector = JoomlaDetector()
+        squarespace_detector = SquarspaceDetector()
+        drupal_detector = drupalDetector()
+        detectors = [wordpress_detector, joomla_detector, squarespace_detector, drupal_detector]
         self._mydb = MyDB()
         self._mydb.connect()
         self._model = Model(detectors)
@@ -97,7 +99,7 @@ class Controller(object):
             today = str(datetime.date.today()).split("-")
             today_year = today[0]
             today_month = today[1]
-            date = str(record[0][4]).split(" ")
+            date = str(record[0][3]).split(" ")
             date_t = date[0].split("-")
             year = date_t[0]
             month = date_t[1]

@@ -39,10 +39,10 @@ def submit():
             sol = domain + "\n" + str(solution) + "\n"
             return render_template("home.html", s=sol)
         else:
-            domain = solution[0][1]
-            platform = solution[0][2]
-            version = solution[0][3]
-            date = get_date(solution[0][4])
+            domain = solution[0][0]
+            platform = solution[0][1]
+            version = solution[0][2]
+            date = get_date(solution[0][3])
             if str(platform) == 'SquareSpace':
                 ver = str(version).split(",")
                 ver_for_client = 'TemplateId: ' + ver[0] + "\n" + 'version: ' + ver[1]
@@ -61,7 +61,7 @@ def get_date(date):
         year = date_t[0]
         month = date_t[1]
         day = date_t[2]
-        last_check = "last checked at:" + year + "/" + month + "/" + day + "\n"
+        last_check = "last checked at:" + year + "/" + month + "/" + day + " - " + str(date[1]) + "\n"
         return last_check
     except Exception as e:
         print(e)
